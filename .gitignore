@@ -1,0 +1,51 @@
+# ============================================================
+# Environment & secrets (never commit)
+# ============================================================
+.env
+*.env.local
+*.env.*.local
+
+# ============================================================
+# Python / Django
+# ============================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+*.pyc
+
+# Virtual environment (backend)
+backend/venv/
+backend/.venv/
+
+# Django runtime artifacts
+backend/db.sqlite3
+backend/staticfiles/
+
+# Media uploads (user-uploaded histopathology images)
+backend/media/
+
+# ============================================================
+# Node / React (frontend)
+# ============================================================
+frontend/node_modules/
+frontend/dist/
+frontend/vite.log
+
+# ============================================================
+# Large ML artifacts not suitable for version control
+# (keep locally; download/extract before training)
+# Original raw dataset images and archived copy (~4.5 GB)
+# ============================================================
+IDC_regular_ps50_idx5/
+archive.zip
+
+# ============================================================
+# OS & editor
+# ============================================================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

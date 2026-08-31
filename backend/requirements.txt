@@ -1,0 +1,9 @@
+# ----- Project dependencies (Python 3.12) -----
+Django==6.1
+djangorestframework==3.18.0
+django-cors-headers==4.9.0
+python-dotenv==1.2.3
+Pillow==12.3.0
+psycopg2-binary==2.9.12
+TensorFlow==2.21.0
+numpy>=1.26,<3.0
