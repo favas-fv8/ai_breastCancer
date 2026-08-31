@@ -20,6 +20,9 @@ by a modern, responsive **React** single-page application backed by **PostgreSQL
   - Clear **Benign / Malignant** result with confidence score
   - Friendly loading states and notifications
 - **History page** — date, time, result, image and delete, persisted in PostgreSQL
+- **Model Performance page** — live confusion matrix, accuracy, precision, recall, F1,
+  loss, per-class metrics and training history. Updates automatically every time a new
+  model or dataset is trained.
 - **About page** — project background, methodology and technology stack
 - **Professional UI** — modern dashboard/navigation, fully responsive, reusable components
 - **Security** — env-based secrets, secure file upload validation, per-user data scoping
@@ -146,6 +149,9 @@ All endpoints (except `login`) require an `Authorization: Token <token>` header.
 | GET    | `/api/history/`                 | List my predictions            |
 | GET    | `/api/history/<id>/`            | Retrieve a prediction          |
 | DELETE | `/api/history/<id>/`            | Delete a prediction            |
+| GET    | `/api/models/`                  | List all model training runs   |
+| GET    | `/api/models/latest/`           | Latest model performance       |
+| GET    | `/api/models/<id>/`             | A specific training run        |
 
 ---
 
@@ -156,6 +162,36 @@ All endpoints (except `login`) require an `Authorization: Token <token>` header.
 are 50×50 RGB patches; outputs are probabilities where **≥0.5 = Malignant** and
 **<0.5 = Benign**. The training pipeline is documented in
 [`ml/cancer_detection.py`](ml/cancer_detection.py).
+
+### Model configuration & switching models
+
+The active model — name, weight file, image size, dataset name — is defined in a
+single central config: [`backend/ml/config.py`](backend/ml/config.py). Both the
+web-app inference service (`backend/ml/predictor.py`) and the training pipeline
+read from this config, so the application always uses the configured model and
+the **Model Performance** page tracks whichever model is active.
+
+To switch to a different model (e.g. a new architecture or retrained weights):
+
+1. Put the new `.h5` file in `backend/ml/model/` (or any reachable path).
+2. Update `backend/ml/config.py`, or set environment variables:
+   - `ML_MODEL_NAME` — display name (e.g. `CancerNetV2`)
+   - `ML_MODEL_FILE` — path to the weights file
+   - `ML_IMAGE_SIZE` — input patch size the model expects
+   - `ML_DATASET_NAME` — dataset used for training
+
+No code changes are required beyond the config — the prediction service loads
+the configured weights automatically, and running `ml/cancer_detection.py`
+records a new `ModelTraining` entry that the Model Performance page shows as the
+latest run.
+
+### Training → performance tracking
+
+Every time training runs, `ml/cancer_detection.py` saves a `ModelTraining`
+record (accuracy, loss, confusion matrix, per-class metrics and training
+history) to PostgreSQL. The **Model Performance** page reads
+`GET /api/models/latest/`, so it updates automatically on every retrain and
+reflects the currently configured model.
 
 ## ⚠️ Disclaimer
 

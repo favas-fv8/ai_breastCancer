@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Detect from "./pages/Detect";
 import History from "./pages/History";
+import ModelPerformance from "./pages/ModelPerformance";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/detect" element={<Detect />} />
               <Route path="/history" element={<History />} />
+              <Route path="/models" element={<ModelPerformance />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<About />} />
             </Route>

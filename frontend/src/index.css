@@ -1013,11 +1013,319 @@ a {
   color: var(--primary);
 }
 
+/* ---------------- Model Performance ---------------- */
+
+.model-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.model-version {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.model-version-name {
+  font-weight: 800;
+}
+
+.model-version-tag {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-secondary {
+  border-left-color: var(--secondary);
+}
+
+.metric-info {
+  border-left-color: #3b82f6;
+}
+
+.metric-success {
+  border-left-color: var(--success);
+}
+
+.metric-danger {
+  border-left-color: var(--danger);
+}
+
+.metric-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metric-value small {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.metric-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.perf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+
+/* Confusion matrix */
+.cm-wrap {
+  padding: 4px;
+}
+
+.cm-axis {
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+.cm-axis-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cm-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+
+.cm-table th {
+  text-align: center;
+}
+
+.cm-table .cm-col-label {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cm-table .cm-row-label {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+  padding-right: 6px;
+  white-space: nowrap;
+}
+
+.cm-table td {
+  text-align: center;
+  padding: 18px 8px;
+  border-radius: var(--radius-sm);
+  display: table-cell;
+}
+
+.cm-cell-value {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.cm-cell-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.cm-cell-pct {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.cm-tp { background: #dcfce7; color: #166534; }
+.cm-tn { background: #dcfce7; color: #166534; }
+.cm-fp { background: #fee2e2; color: #b91c1c; }
+.cm-fn { background: #fee2e2; color: #b91c1c; }
+
+.cm-total {
+  text-align: center;
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Per-class metrics */
+.table-inset {
+  border: none;
+  box-shadow: none;
+}
+
+.class-name {
+  font-weight: 700;
+}
+
+.row-current {
+  background: var(--primary-light);
+}
+
+.badge-current {
+  display: inline-block;
+  margin-left: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Training history chart */
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.chart-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.chart-key {
+  width: 90px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 120px;
+  flex: 1;
+}
+
+.bar {
+  flex: 1;
+  min-width: 4px;
+  border-radius: 3px 3px 0 0;
+  transition: filter 0.2s;
+}
+
+.bar:hover {
+  filter: brightness(1.15);
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* Training details */
+.details-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.details-list div {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.details-list dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.details-list dd {
+  margin: 0;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.model-notes {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
 /* ---------------- Responsive ---------------- */
 
 @media (max-width: 900px) {
   .detect-grid,
-  .hero {
+  .hero,
+  .perf-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1027,6 +1335,10 @@ a {
 
   .hero h1 {
     font-size: 32px;
+  }
+
+  .details-list {
+    grid-template-columns: 1fr;
   }
 }
 

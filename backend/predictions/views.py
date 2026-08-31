@@ -1,14 +1,18 @@
 from PIL import Image, UnidentifiedImageError
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.generics import ListAPIView, RetrieveDestroyAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from ml import predictor
 
-from .models import Prediction
-from .serializers import PredictionCreateSerializer, PredictionSerializer
+from .models import ModelTraining, Prediction
+from .serializers import (
+    ModelTrainingSerializer,
+    PredictionCreateSerializer,
+    PredictionSerializer,
+)
 
 
 @api_view(["POST"])
@@ -69,3 +73,33 @@ class PredictionDetailView(RetrieveDestroyAPIView):
 
     def get_queryset(self):
         return Prediction.objects.filter(user=self.request.user)
+
+
+class ModelTrainingListView(ListAPIView):
+    """Returns all stored model training runs (newest first)."""
+
+    serializer_class = ModelTrainingSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = ModelTraining.objects.all()
+
+
+class ModelTrainingDetailView(RetrieveAPIView):
+    """Returns a single training run by id."""
+
+    serializer_class = ModelTrainingSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = ModelTraining.objects.all()
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def model_training_latest_view(request):
+    """Returns the most recent training run's performance data."""
+    queryset = ModelTraining.objects.all()
+    if not queryset.exists():
+        return Response(
+            {"detail": "No model training data available yet."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    latest = queryset.first()
+    return Response(ModelTrainingSerializer(latest).data)

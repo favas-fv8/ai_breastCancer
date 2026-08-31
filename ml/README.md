@@ -25,3 +25,10 @@ python cancer_detection.py
 
 The dataset folder must be present at the project root (`IDC_regular_ps50_idx5/`)
 for the script to load data.
+
+After training completes, the script automatically records a
+`ModelTraining` entry (accuracy, loss, confusion matrix, per-class metrics and
+training history) into the web application's PostgreSQL database. The frontend
+**Model Performance** page reads this record, so it updates automatically on
+every training run. If the Django environment/database is unavailable, the
+training still completes — it simply skips the metrics persistence step.

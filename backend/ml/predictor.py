@@ -1,43 +1,42 @@
 """Deep learning inference service.
 
-Loads the pre-trained CancerNet CNN model once and exposes a prediction
+Loads the active model (defined in ml/config.py) once and exposes a prediction
 function that mirrors the preprocessing used during training
-(cancer_detection.py): images are resized to 50x50, rescaled to [0,1] and
-passed through the binary sigmoid head (0 = Benign, 1 = Malignant).
+(cancer_detection.py): images are resized / rescaled and passed through the
+binary sigmoid head (0 = Benign, 1 = Malignant). If the active model in the
+config changes (name, file or image size), this service automatically follows
+it — including when the training pipeline records a new ModelTraining entry.
 """
 
 from __future__ import annotations
 
-import os
-
 import numpy as np
 from PIL import Image
 
+from . import config
+
 # Importing keras/tensorflow is deferred to avoid a heavy import at module
 # load. The model is loaded lazily on first use.
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "model", "CancerNet_Model.h5")
-
-IMG_SIZE = (50, 50)
-
-# Class labels: IDC_negative -> Benign, IDC_positive -> Malignant
-CLASS_LABELS = {0: "Benign", 1: "Malignant"}
-
 _model = None
+_model_source = None
 
 
 def _get_model():
-    """Load and cache the Keras model."""
-    global _model
-    if _model is None:
+    """Load (and cache) the Keras model pointed to by the central config."""
+    global _model, _model_source
+
+    path = str(config.MODEL_PATH)
+    if _model is None or _model_source != path:
         from tensorflow.keras.models import load_model
 
-        _model = load_model(MODEL_PATH, compile=False)
+        _model = load_model(path, compile=False)
+        _model_source = path
     return _model
 
 
 def preprocess_image(image: Image.Image) -> np.ndarray:
-    """Convert a PIL image into a (1, 50, 50, 3) float32 array in [0,1]."""
-    image = image.convert("RGB").resize(IMG_SIZE)
+    """Convert a PIL image into a (1, N, N, 3) float32 array in [0,1]."""
+    image = image.convert("RGB").resize(config.IMG_SIZE)
     arr = np.asarray(image, dtype="float32") / 255.0
     arr = np.expand_dims(arr, axis=0)
     return arr

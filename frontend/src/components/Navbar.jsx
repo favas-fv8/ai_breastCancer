@@ -13,6 +13,7 @@ export default function Navbar() {
   const navItems = [
     { to: "/detect", label: "Detection" },
     { to: "/history", label: "History" },
+    { to: "/models", label: "Model" },
     { to: "/about", label: "About" },
   ];
 

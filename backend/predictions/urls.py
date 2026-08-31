@@ -10,4 +10,12 @@ urlpatterns = [
         views.PredictionDetailView.as_view(),
         name="history-detail",
     ),
+    # Model training / performance
+    path("models/", views.ModelTrainingListView.as_view(), name="model-list"),
+    path("models/latest/", views.model_training_latest_view, name="model-latest"),
+    path(
+        "models/<int:pk>/",
+        views.ModelTrainingDetailView.as_view(),
+        name="model-detail",
+    ),
 ]
