@@ -8,7 +8,7 @@ export default function About() {
       <section className="card">
         <h2 className="card-title">Overview</h2>
         <p>
-          BreastAI is a full-stack web application that leverages a custom-built deep
+          BC-Ai is a full-stack web application that leverages a custom-built deep
           learning model to assist in the detection of Invasive Ductal Carcinoma (IDC) —
           the most common type of breast cancer — from histopathology tissue images.
         </p>

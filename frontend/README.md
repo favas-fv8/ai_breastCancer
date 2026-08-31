@@ -1,6 +1,6 @@
-# BreastAI — Frontend (React + Vite)
+# BC-Ai — Frontend (React + Vite)
 
-React single-page application for the BreastAI breast cancer detection system.
+React single-page application for the BC-Ai breast cancer detection system.
 It consumes the Django REST API described in the project root README.
 
 ## Stack

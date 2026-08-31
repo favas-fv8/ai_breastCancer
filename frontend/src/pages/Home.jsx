@@ -10,7 +10,7 @@ export default function Home() {
           <span className="hero-eyebrow">AI · Deep Learning · Histopathology</span>
           <h1>Early Breast Cancer Detection<br />Powered by AI</h1>
           <p>
-            BreastAI uses a convolutional neural network (CancerNet) trained on the IDC
+            BC-Ai uses a convolutional neural network (CancerNet) trained on the IDC
             breast histopathology dataset to classify tissue images as Benign or Malignant.
           </p>
           <div className="hero-actions">

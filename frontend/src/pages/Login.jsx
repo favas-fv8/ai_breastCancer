@@ -51,7 +51,7 @@ export default function Login() {
       <div className="auth-card">
         <div className="auth-brand">
           <span className="auth-logo">✦</span>
-          <h1>BreastAI</h1>
+          <h1>BC-Ai</h1>
           <p>AI-Powered Breast Cancer Histopathology Detection</p>
         </div>
 

@@ -170,10 +170,6 @@ export default function Detect() {
                   <span className="result-metric-label">Confidence</span>
                   <span className="result-metric-value">{result.confidence}%</span>
                 </div>
-                <div className="result-metric">
-                  <span className="result-metric-label">Model Probability</span>
-                  <span className="result-metric-value">{result.probability}</span>
-                </div>
               </div>
               <div className="confidence-bar">
                 <div
@@ -181,12 +177,6 @@ export default function Detect() {
                   style={{ width: `${Math.min(100, result.confidence)}%` }}
                 />
               </div>
-              {result.image && (
-                <div className="result-image">
-                  <span className="result-image-label">Analyzed Image</span>
-                  <img src={result.image} alt="Analyzed histopathology" />
-                </div>
-              )}
             </div>
           )}
         </section>

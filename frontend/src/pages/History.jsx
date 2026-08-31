@@ -15,7 +15,7 @@ export default function History() {
     setError(null);
     try {
       const data = await apiGet("/history/");
-      setItems(data);
+      setItems(data.slice(0, 20));
     } catch (err) {
       setError(extractFieldErrors(err)[0]);
     } finally {
@@ -45,7 +45,7 @@ export default function History() {
     <div className="page">
       <header className="page-header">
         <h1>Prediction History</h1>
-        <p>Review all your previous breast cancer detection analyses.</p>
+        <p>Review your latest 20 breast cancer detection analyses, newest first.</p>
       </header>
 
       {loading && <Loader label="Loading history..." />}
@@ -65,6 +65,7 @@ export default function History() {
           <table className="data-table">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Image</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -74,13 +75,14 @@ export default function History() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => {
+              {items.map((item, index) => {
                 const parts = item.created_at.split(" ");
                 const date = parts[0] || item.created_at;
                 const time = parts[1] || "";
                 const malignant = item.result === "Malignant";
                 return (
                   <tr key={item.id}>
+                    <td className="row-number">{index + 1}</td>
                     <td>
                       <img
                         src={item.image}

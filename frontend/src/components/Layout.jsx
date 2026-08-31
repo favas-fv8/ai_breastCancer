@@ -9,7 +9,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <footer className="app-footer">
-        <p>© {new Date().getFullYear()} BreastAI · AI-powered breast cancer detection</p>
+        <p>© {new Date().getFullYear()} BC-Ai · AI-powered breast cancer detection</p>
       </footer>
     </div>
   );

@@ -34,7 +34,7 @@ export default function Navbar() {
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
           <span className="brand-logo">✦</span>
           <span className="brand-text">
-            <span className="brand-title">BreastAI</span>
+            <span className="brand-title">BC-Ai</span>
             <span className="brand-sub">Cancer Detection</span>
           </span>
         </Link>
